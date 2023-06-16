@@ -77,6 +77,8 @@ def game():
     color_change_timer = 0  # Contador de tempo para a mudança de cor
     snake_color = GREEN  # Cor inicial da cobra
 
+    food_change_chance = 0.1  # Chance de alterar a posição da comida antes da cobra chegar nela
+
     # Loop principal do jogo
     running = True
     while running:
@@ -161,6 +163,10 @@ def game():
             if speed_increase and color_change_timer >= color_change_interval:
                 snake_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
                 color_change_timer = 0  # Reinicia o contador de mudança de cor
+
+            # Verificação de alteração de posição da comida
+            if random.random() < food_change_chance:
+                food_position = generate_food_position(snake_segments)
 
             # Atualização do contador de mudança de cor
             color_change_timer += clock.get_time() / 1000  # Converte o tempo em milissegundos para segundos
